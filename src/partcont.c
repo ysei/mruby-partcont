@@ -27,7 +27,7 @@ mrb_continuation_initialize(mrb_state *mrb, mrb_value self)
   fib->cxt = mrb->c;
 
   /* save current context as a fiber */
-  mrb_iv_set(mrb, self, mrb_intern(mrb, "__fiber__"), mrb_obj_value(fib));
+  mrb_iv_set(mrb, self, mrb_intern_cstr(mrb, "__fiber__"), mrb_obj_value(fib));
 
   return self;
 }
@@ -106,7 +106,7 @@ mrb_continuation_call(mrb_state *mrb, mrb_value self)
 
   mrb_get_args(mrb, "*", &a, &len);
 
-  fib = mrb_iv_get(mrb, self, mrb_intern(mrb, "__fiber__"));
+  fib = mrb_iv_get(mrb, self, mrb_intern_cstr(mrb, "__fiber__"));
 
   /* clone context */
   c = clone_context(mrb, mrb_fiber_ptr(fib)->cxt);
